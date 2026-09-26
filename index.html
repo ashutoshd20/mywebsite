@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ashutosh Dwivedi - Software engineer and researcher</title>
+<meta name="description" content="Software engineer. Three years at CERN building the CMS tracker assembly database. Researcher on cultural bias in language models, published at ACL 2025 and EMNLP 2023.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    --bg: #040912;
+    --bg2: #0A1626;
+    --panel: #0B1A2C;
+    --line: rgba(70, 230, 255, .28);
+    --line-strong: rgba(70, 230, 255, .65);
+    --cyan: #46E6FF;
+    --orange: #FF8A2B;
+    --text: #DCF4F8;
+    --muted: #8FB0BA;
+    --grid: rgba(70, 230, 255, .17);
+    --glow: 0 0 22px rgba(70, 230, 255, .35);
+    --on-cyan: #03222B;
+    --display: "Chakra Petch", "Segoe UI", system-ui, sans-serif;
+    --body: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+    color-scheme: dark;
+  }
+  :root[data-theme="light"] {
+    --bg: #EEF8FA;
+    --bg2: #E0F0F4;
+    --panel: #FFFFFF;
+    --line: rgba(0, 120, 145, .3);
+    --line-strong: rgba(0, 120, 145, .7);
+    --cyan: #007C93;
+    --orange: #C24E00;
+    --text: #062A36;
+    --muted: #42646F;
+    --grid: rgba(0, 120, 145, .16);
+    --glow: none;
+    --on-cyan: #FFFFFF;
+    color-scheme: light;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--cyan); text-underline-offset: 3px; }
+  a:hover { color: var(--orange); }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+  h1, h2, h3 { font-family: var(--display); line-height: 1.15; margin: 0; font-weight: 600; }
+  p { margin: 0 0 1em; }
+  ul { margin: 0; padding: 0; }
+
+  /* Header and tabs */
+  .bar {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 20px;
+    padding: 10px clamp(16px, 4vw, 48px) 0;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .brand {
+    background: none; border: 0; padding: 8px 0;
+    font-family: var(--display); font-weight: 700; font-size: 1.15rem; letter-spacing: .02em;
+    color: var(--text);
+  }
+  .brand:hover { color: var(--cyan); }
+  .tabs {
+    order: 3;
+    flex: 1 1 100%;
+    display: flex;
+    gap: 2px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  [role="tab"] {
+    flex: 0 0 auto;
+    background: none;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    padding: 10px 14px 12px;
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: .98rem;
+    color: var(--muted);
+    transition: color .2s, border-color .2s, text-shadow .2s;
+  }
+  [role="tab"]:hover { color: var(--text); }
+  [role="tab"][aria-selected="true"] {
+    color: var(--cyan);
+    border-bottom-color: var(--cyan);
+    text-shadow: var(--glow);
+  }
+  .theme {
+    margin-left: auto;
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    padding: 5px 12px;
+    font-size: .88rem;
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+  }
+  .theme:hover { color: var(--cyan); border-color: var(--line-strong); }
+  @media (min-width: 900px) {
+    .bar { flex-wrap: nowrap; padding-bottom: 0; }
+    .tabs { order: 0; flex: 1 1 auto; justify-content: center; }
+    .theme { margin-left: 0; }
+  }
+
+  /* Layout */
+  main { min-height: 70vh; }
+  [role="tabpanel"] { animation: swap .28s ease-out; }
+  [role="tabpanel"][hidden] { display: none; }
+  @keyframes swap { from { opacity: 0; } to { opacity: 1; } }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: clamp(40px, 7vw, 88px) clamp(18px, 4vw, 40px) 72px; }
+  .lead { color: var(--muted); max-width: 62ch; margin-top: 14px; font-size: 1.05rem; }
+  h2.title { font-size: clamp(2rem, 4.6vw, 3rem); }
+  .prose { max-width: 66ch; }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    min-height: min(82vh, 760px);
+    display: flex;
+    align-items: center;
+    isolation: isolate;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0; z-index: -3;
+    background:
+      radial-gradient(70% 50% at 50% 100%, color-mix(in srgb, var(--cyan) 22%, transparent), transparent 70%),
+      linear-gradient(to bottom, var(--bg) 40%, var(--bg2));
+  }
+  .floor {
+    position: absolute; z-index: -2;
+    left: -60%; right: -60%; bottom: -2%; height: 62%;
+    background:
+      linear-gradient(var(--grid) 1.5px, transparent 1.5px) 0 0 / 100% 52px,
+      linear-gradient(90deg, var(--grid) 1.5px, transparent 1.5px) 0 0 / 72px 100%;
+    transform: perspective(420px) rotateX(64deg);
+    transform-origin: 50% 100%;
+    -webkit-mask-image: linear-gradient(to top, #000 15%, transparent 95%);
+            mask-image: linear-gradient(to top, #000 15%, transparent 95%);
+  }
+  .trail {
+    position: absolute; z-index: -1;
+    left: 0; right: 0; bottom: 0; width: 100%; height: 46%;
+    pointer-events: none;
+  }
+  .trail path {
+    fill: none;
+    stroke: var(--cyan);
+    stroke-width: 3;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 6px var(--cyan));
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: draw 2.8s cubic-bezier(.5, .05, .3, 1) .3s forwards;
+  }
+  .trail circle { fill: var(--orange); filter: drop-shadow(0 0 8px var(--orange)); }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  .hero-inner { width: 100%; max-width: 1040px; margin: 0 auto; padding: 56px clamp(18px, 4vw, 40px) 140px; }
+  .hero h1 {
+    font-size: clamp(2.7rem, 9vw, 6.4rem);
+    font-weight: 700;
+    letter-spacing: -.01em;
+    text-shadow: 0 0 40px color-mix(in srgb, var(--cyan) 40%, transparent);
+  }
+  .hero .role {
+    font-family: var(--display);
+    font-size: clamp(1.15rem, 2.6vw, 1.6rem);
+    color: var(--cyan);
+    margin: 14px 0 22px;
+  }
+  .hero .pitch { max-width: 56ch; font-size: 1.12rem; color: var(--text); }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+  .btn {
+    font-family: var(--display); font-weight: 600; font-size: 1rem;
+    padding: 12px 24px;
+    border: 1px solid var(--cyan);
+    background: transparent; color: var(--cyan);
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    transition: background .2s, color .2s, box-shadow .2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn:hover { background: color-mix(in srgb, var(--cyan) 14%, transparent); color: var(--cyan); }
+  .btn.solid { background: var(--cyan); color: var(--on-cyan); }
+  .btn.solid:hover { background: var(--orange); border-color: var(--orange); color: var(--on-cyan); }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 28px 40px;
+  }
+  .facts div { border-top: 1px solid var(--line-strong); padding-top: 14px; }
+  .facts h3 { font-size: 1.15rem; color: var(--cyan); margin-bottom: 6px; }
+  .facts p { color: var(--muted); margin: 0; font-size: .98rem; }
+
+  /* About */
+  .split { display: grid; gap: 48px; grid-template-columns: 1fr; margin-top: 40px; }
+  @media (min-width: 860px) { .split { grid-template-columns: 1.15fr 1fr; } }
+  .split h3 { font-size: 1.25rem; margin-bottom: 14px; color: var(--cyan); }
+  .edu { width: 100%; border-collapse: collapse; font-size: .98rem; }
+  .edu th, .edu td { text-align: left; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .edu th { font-family: var(--display); font-weight: 600; color: var(--muted); font-size: .9rem; }
+  .edu td:first-child { color: var(--muted); white-space: nowrap; }
+  .wins { list-style: none; }
+  .wins li { padding: 12px 0 12px 20px; border-bottom: 1px solid var(--line); position: relative; }
+  .wins li::before {
+    content: ""; position: absolute; left: 0; top: 21px;
+    width: 8px; height: 8px; background: var(--orange); transform: rotate(45deg);
+  }
+
+  /* Experience timeline */
+  .timeline { list-style: none; margin: 44px 0 0; padding: 0 0 0 28px; border-left: 1px solid var(--line-strong); }
+  .timeline > li { position: relative; padding-bottom: 46px; }
+  .timeline > li:last-child { padding-bottom: 0; }
+  .timeline > li::before {
+    content: ""; position: absolute; left: -34.5px; top: 9px;
+    width: 11px; height: 11px; background: var(--bg);
+    border: 1px solid var(--cyan); transform: rotate(45deg);
+    box-shadow: var(--glow);
+  }
+  .timeline h3 { font-size: 1.5rem; }
+  .when { color: var(--cyan); font-family: var(--display); font-size: .98rem; margin: 4px 0 14px; }
+  .timeline ul { list-style: none; max-width: 72ch; }
+  .timeline ul li { position: relative; padding: 0 0 10px 18px; color: var(--text); }
+  .timeline ul li::before { content: ""; position: absolute; left: 0; top: .72em; width: 8px; height: 1px; background: var(--cyan); }
+  .stack { color: var(--muted); font-size: .92rem; margin-top: 6px; }
+
+  /* Research */
+  .group { margin-top: 56px; }
+  .group > h3 { font-size: 1.3rem; color: var(--cyan); padding-bottom: 10px; border-bottom: 1px solid var(--line-strong); }
+  .paper { display: grid; gap: 6px 36px; grid-template-columns: 1fr; padding: 26px 0; border-bottom: 1px solid var(--line); }
+  @media (min-width: 800px) { .paper { grid-template-columns: 210px 1fr; } }
+  .venue { font-family: var(--display); font-weight: 600; color: var(--orange); }
+  .venue small { display: block; color: var(--muted); font-family: var(--body); font-weight: 400; font-size: .9rem; }
+  .paper h4 { font-family: var(--display); font-size: 1.25rem; margin: 0 0 10px; font-weight: 600; line-height: 1.3; }
+  .paper ul { list-style: none; max-width: 68ch; }
+  .paper li { position: relative; padding: 0 0 6px 18px; color: var(--muted); }
+  .paper li::before { content: ""; position: absolute; left: 0; top: .72em; width: 8px; height: 1px; background: var(--cyan); }
+  .note { margin-top: 26px; color: var(--muted); }
+
+  /* Projects */
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 32px 0 26px; }
+  .chip {
+    background: none; border: 1px solid var(--line); color: var(--muted);
+    padding: 6px 16px; font-family: var(--display); font-size: .95rem;
+    transition: color .2s, border-color .2s, background .2s;
+  }
+  .chip:hover { color: var(--text); border-color: var(--line-strong); }
+  .chip[aria-pressed="true"] { color: var(--on-cyan); background: var(--cyan); border-color: var(--cyan); }
+  .grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 310px), 1fr)); }
+  .proj {
+    position: relative;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 24px 22px 22px;
+    clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%);
+    transition: border-color .2s;
+  }
+  .proj:hover { border-color: var(--line-strong); }
+  .proj[hidden] { display: none; }
+  .proj h3 { font-size: 1.28rem; margin-bottom: 4px; }
+  .proj .kind { color: var(--orange); font-family: var(--display); font-size: .92rem; margin-bottom: 12px; }
+  .proj p { color: var(--muted); font-size: .97rem; margin-bottom: 12px; }
+  .proj .stack { margin: 0; }
+
+  /* Skills */
+  .skills { margin-top: 40px; }
+  .skills > div { display: grid; gap: 8px 32px; grid-template-columns: 1fr; padding: 22px 0; border-top: 1px solid var(--line); }
+  .skills > div:last-child { border-bottom: 1px solid var(--line); }
+  @media (min-width: 800px) { .skills > div { grid-template-columns: 220px 1fr; } }
+  .skills dt { font-family: var(--display); font-weight: 600; color: var(--cyan); font-size: 1.08rem; }
+  .skills dd { margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .skills span { border: 1px solid var(--line); padding: 3px 12px; font-size: .93rem; }
+  .course { margin-top: 28px; color: var(--muted); max-width: 72ch; }
+
+  /* Contact */
+  .contact-box {
+    margin-top: 40px; padding: 36px clamp(20px, 4vw, 44px);
+    background: var(--panel); border: 1px solid var(--line-strong);
+    clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 30px, 100% 100%, 30px 100%, 0 calc(100% - 30px));
+    max-width: 720px;
+  }
+  .contact-box .mail { font-family: var(--display); font-size: clamp(1.2rem, 3.6vw, 1.9rem); font-weight: 600; word-break: break-all; }
+  .contact-box ul { list-style: none; margin-top: 22px; display: grid; gap: 8px; }
+  .copy { margin-top: 20px; }
+
+  footer { border-top: 1px solid var(--line); padding: 26px clamp(16px, 4vw, 48px) 34px; color: var(--muted); font-size: .9rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trail path { animation: none; stroke-dashoffset: 0; }
+    .trail circle { display: none; }
+    [role="tabpanel"] { animation: none; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <button class="brand" type="button" data-goto="home" aria-label="Ashutosh Dwivedi, go to home">Ashutosh Dwivedi</button>
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button role="tab" id="tab-home" aria-controls="panel-home" data-tab="home">Home</button>
+    <button role="tab" id="tab-about" aria-controls="panel-about" data-tab="about">About</button>
+    <button role="tab" id="tab-experience" aria-controls="panel-experience" data-tab="experience">Experience</button>
+    <button role="tab" id="tab-research" aria-controls="panel-research" data-tab="research">Research</button>
+    <button role="tab" id="tab-projects" aria-controls="panel-projects" data-tab="projects">Projects</button>
+    <button role="tab" id="tab-skills" aria-controls="panel-skills" data-tab="skills">Skills</button>
+    <button role="tab" id="tab-contact" aria-controls="panel-contact" data-tab="contact">Contact</button>
+  </nav>
+  <button class="theme" type="button" id="theme" aria-pressed="false">Light mode</button>
+</header>
+
+<main>
+
+  <!-- HOME -->
+  <section id="panel-home" role="tabpanel" aria-labelledby="tab-home" tabindex="0">
+    <div class="hero">
+      <div class="floor" aria-hidden="true"></div>
+      <svg class="trail" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+        <path id="cycle" pathLength="1" d="M -20 250 H 230 V 205 H 470 V 262 H 700 V 170 H 940 V 240 H 1220"/>
+        <circle r="6" cx="0" cy="0">
+          <animateMotion dur="2.8s" begin="0.3s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines=".5 .05 .3 1">
+            <mpath href="#cycle"/>
+          </animateMotion>
+        </circle>
+      </svg>
+      <div class="hero-inner">
+        <h1>Ashutosh Dwivedi</h1>
+        <p class="role">Software engineer and researcher</p>
+        <p class="pitch">I spent three years running the assembly database for the CMS tracker at CERN. Alongside that, I study bias in large language models and develop new training techniques of mitigation.</p>
+        <div class="actions">
+          <button class="btn solid" type="button" data-goto="research">See my research</button>
+          <button class="btn" type="button" data-goto="experience">Read my experience</button>
+        </div>
+      </div>
+    </div>
+    <div class="wrap" style="padding-top: 24px;">
+      <div class="facts">
+        <div>
+          <h3>Where I studied</h3>
+          <p>IIT Kanpur, B.Tech 2025. Major in Mechanical Engineering with minors in AI and Computer Systems.</p>
+        </div>
+        <div>
+          <h3>What I have published</h3>
+          <p>Papers at ACL 2025 in Vienna and EMNLP 2023 in Singapore, plus several CMS collaboration papers.</p>
+        </div>
+        <div>
+          <h3>What I have built</h3>
+          <p>A distributed gRPC server, production architectures and a 16-bit processor running on an FPGA.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="panel-about" role="tabpanel" aria-labelledby="tab-about" tabindex="0" hidden>
+    <div class="wrap">
+      <h2 class="title">About</h2>
+      <p class="lead">Four years of backend, machine learning and research work, most of it close to physics experiments.</p>
+      <div class="split">
+        <div class="prose">
+          <p>I am a software engineer who moves between systems work and research. At CERN, I maintained the production database that tracks how the CMS Central Tracker is assembled, and built the services and web tools people use to read and manage that data.</p>
+          <p>My research started with a simple question: do language models know that etiquette differs by region? That became EtiCor, a corpus of etiquette across cultures, and later a set of metrics for measuring etiquette bias in LLMs. Both were published.</p>
+          <p>I studied Mechanical Engineering at IIT Kanpur with minors in AI and Computer Systems, which is why I am equally comfortable with a Verilog processor and a PyTorch training run.</p>
+        </div>
+        <div>
+          <h3>Education</h3>
+          <table class="edu">
+            <thead><tr><th scope="col">Years</th><th scope="col">Program</th><th scope="col">Score</th></tr></thead>
+            <tbody>
+              <tr><td>2020 to 2025</td><td>B.Tech, IIT Kanpur</td><td>8.0 / 10</td></tr>
+              <tr><td>2020</td><td>CBSE Class XII, Aatmdeep Vidyalaya</td><td>95.2%</td></tr>
+              <tr><td>2018</td><td>ICSE Class X, Little Flower School, Salempur</td><td>94%</td></tr>
+            </tbody>
+          </table>
+          <h3 style="margin-top: 36px;">Achievements</h3>
+          <ul class="wins">
+            <li>All India Rank 2003 in JEE Advanced 2020, out of about 1.2 million candidates.</li>
+            <li>Certificate of Commendation for the only successful submission in the Altair Data Analytics Challenge.</li>
+            <li>Top 20 in Idea-thon, the pitch competition run by the IIT Kanpur Alumni Association.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="panel-experience" role="tabpanel" aria-labelledby="tab-experience" tabindex="0" hidden>
+    <div class="wrap">
+      <h2 class="title">Experience</h2>
+      <p class="lead">From a lab bench at IIT Kanpur to production systems at CERN.</p>
+      <ol class="timeline">
+        <li>
+          <h3>CERN, Geneva</h3>
+          <p class="when">Software Engineer, October 2023 to July 2026</p>
+          <ul>
+            <li>Administered the CMS Central Tracker Assembly Database across three consecutive contracts, keeping production database operations running for detector assembly.</li>
+            <li>Designed a distributed gRPC server architecture with load balancing and fault detection. Modernized legacy software and wrote Python libraries, Java RPMs and RESTlet support repositories.</li>
+            <li>Built CMSDCA, a production Django web application for browsing, uploading and managing detector data, with interactive visualizations, dynamic search and admin tools.</li>
+            <li>Improved ResthubAPI for fast, personalized data retrieval, and built distributed dashboard services with Django, Flask and Node.js, containerized across multiple VMs.</li>
+            <li>Automated deployment and maintenance with install scripts, Git and Travis CI pipelines, custom data APIs and database sanity-check utilities.</li>
+          </ul>
+          <p class="stack">Python, Java, Django, Flask, Node.js, gRPC, Oracle DB, Travis CI, Ansible</p>
+        </li>
+        <li>
+          <h3>MITACS Research, Calgary</h3>
+          <p class="when">Machine Learning Intern, May to August 2023</p>
+          <ul>
+            <li>Built distributed PyTorch models that detect brain diseases from 3D images using federated learning.</li>
+            <li>Used high performance computing on Compute Canada clusters to train models of 300 GB in size quickly.</li>
+          </ul>
+          <p class="stack">PyTorch, federated learning, HPC</p>
+        </li>
+        <li>
+          <h3>PerceptionAi, remote</h3>
+          <p class="when">Software Developer Intern, September 2022 to February 2023</p>
+          <ul>
+            <li>Wrote Flask REST APIs to deploy models and designed the NoSQL data model that stores their data.</li>
+            <li>Developed hybrid transformer models based on published research, built for distributed work. Balanced threading, multiprocessing, async code and API calls to cut costs.</li>
+            <li>Made Slack apps that manage servers through Kafka, and used typed Python across the backend to reduce operational bugs.</li>
+          </ul>
+          <p class="stack">Flask, Kafka, NoSQL, Python</p>
+        </li>
+        <li>
+          <h3>Machine Tool Dynamics Lab, IIT Kanpur</h3>
+          <p class="when">Student Research Associate, March to August 2022</p>
+          <ul>
+            <li>Built feedback-loop control software with PyQt5 that measures motion accurately and responds quickly, for high-precision tools.</li>
+          </ul>
+          <p class="stack">PyQt5, Python</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section id="panel-research" role="tabpanel" aria-labelledby="tab-research" tabindex="0" hidden>
+    <div class="wrap">
+      <h2 class="title">Publications</h2>
+      <p class="lead">Two lines of work: how language models handle bias, and how particle detectors hold up under radiation.</p>
+
+      <div class="group">
+        <h3>Language models and culture</h3>
+        <article class="paper">
+          <div class="venue">ACL 2025 Findings<small>Vienna</small></div>
+          <div>
+            <h4>Towards Understanding Etiquettical Bias in LLMs</h4>
+            <ul>
+              <li>Proposed new evaluation tasks and seven algorithmic metrics for measuring etiquettical bias in LLMs.</li>
+              <li>Built the metrics from different vectors of LLMs to capture their generative behavior.</li>
+              <li>Ran experiments on five popular LLMs and found clear regional preferences in social norms.</li>
+            </ul>
+          </div>
+        </article>
+        <article class="paper">
+          <div class="venue">EMNLP 2023<small>Singapore</small></div>
+          <div>
+            <h4>EtiCor: Corpus for Analyzing LLMs for Etiquettes</h4>
+            <ul>
+              <li>Curated a new dataset of etiquettes from several cultures.</li>
+              <li>Probed LLMs for accuracy and bias across different aspects of etiquette, and defined general alignments.</li>
+              <li>Fine-tuned models to account for regional biases, making them more culturally aware and accurate.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+
+      <div class="group">
+        <h3>Particle physics with the CMS collaboration</h3>
+        <article class="paper">
+          <div class="venue">CMS collaboration<small>August 2025</small></div>
+          <div>
+            <h4>Operation and performance of the CMS silicon strip tracker with proton-proton collisions at the CERN LHC</h4>
+            <ul>
+              <li>Evaluated tracker performance during LHC Run 2 using detector observables.</li>
+              <li>Studied radiation effects in silicon sensors and optical links, comparing measurements with simulation for longevity studies.</li>
+              <li>Characterized saturation of the APV25 preamplifier and its effect on tracker performance, supporting calibration work.</li>
+            </ul>
+          </div>
+        </article>
+        <article class="paper">
+          <div class="venue">CMS collaboration<small>NIM A 2026</small></div>
+          <div>
+            <h4>Evaluation of 3D pixel silicon sensors for the CMS Phase-2 Inner Tracker</h4>
+            <ul>
+              <li>Validated 3D silicon pixel sensors for the Phase-2 tracker upgrade in beam tests, before and after irradiation.</li>
+              <li>Measured hit efficiency, channel masking and radiation tolerance using RD53A and CROCv1 readout chips.</li>
+              <li>Characterized sensor operation under the extreme radiation of the LHC, supporting qualification of future tracking detectors.</li>
+            </ul>
+          </div>
+        </article>
+        <p class="note">I have also contributed to more than five other papers that are under peer review. CMS papers are published under the collaboration author list.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="panel-projects" role="tabpanel" aria-labelledby="tab-projects" tabindex="0" hidden>
+    <div class="wrap">
+      <h2 class="title">Projects</h2>
+      <p class="lead">Course work, side projects and open source, from silicon to software.</p>
+      <div class="filters" role="group" aria-label="Filter projects">
+        <button class="chip" type="button" data-filter="all" aria-pressed="true">All</button>
+        <button class="chip" type="button" data-filter="hardware" aria-pressed="false">Hardware</button>
+        <button class="chip" type="button" data-filter="software" aria-pressed="false">Software</button>
+        <button class="chip" type="button" data-filter="ml" aria-pressed="false">Machine learning</button>
+      </div>
+      <div class="grid">
+        <article class="proj" data-tags="hardware">
+          <h3>IITK MiniMips</h3>
+          <p class="kind">Computer Organisation, January to April 2025</p>
+          <p>A 16-bit MIPS-inspired RISC processor written in Verilog, with a custom datapath, ALU, register file, program counter, instruction decoder, control unit and memory interface.</p>
+          <p>I defined a custom instruction set and assembly language, then synthesized the design and ran it on a Xilinx FPGA board.</p>
+          <p class="stack">Verilog, Xilinx FPGA, assembly</p>
+        </article>
+        <article class="proj" data-tags="software">
+          <h3>Trading software</h3>
+          <p class="kind">Personal project, March 2025 to present</p>
+          <p>Automated strategies for stocks and commodities on Indian exchanges, built on the Groww APIs.</p>
+          <p>Python libraries manage funds precisely and send updates through Telegram.</p>
+          <p class="stack">Python, Groww API, Telegram</p>
+        </article>
+        <article class="proj" data-tags="ml software">
+          <h3>Image processing system</h3>
+          <p class="kind">Image Processing course, September to December 2022</p>
+          <p>A suite covering smoothing, sharpening, edge enhancement and scaling, plus an assistant that looks at an image and your request, then recommends and applies the best filters.</p>
+          <p class="stack">Python, computer vision</p>
+        </article>
+        <article class="proj" data-tags="hardware">
+          <h3>Peltier temperature control</h3>
+          <p class="kind">Thermal Systems design course, September to December 2024</p>
+          <p>A Peltier-based cooling module for office chairs and beds. I designed it in AutoCAD and simulated heat dissipation and efficiency for an industry-ready module.</p>
+          <p class="stack">AutoCAD, thermal simulation</p>
+        </article>
+        <article class="proj" data-tags="software">
+          <h3>Notes Keeper</h3>
+          <p class="kind">Chrome extension, December 2022 to February 2023</p>
+          <p>A Chrome extension for keeping small notes close at hand. Everything is stored locally, so it stays private and works without a network.</p>
+          <p class="stack">JavaScript, local storage</p>
+        </article>
+        <article class="proj" data-tags="ml software">
+          <h3>Smaller builds</h3>
+          <p class="kind">Open source and experiments</p>
+          <p>Emoji Suggester, Twitter Insight Derivation, and a Keras auto hyper-tuning tool. Image filter and segmentation algorithms and a patient health monitoring system. Two JavaScript games, Coder and Bugs and Flappy Bird.</p>
+          <p class="stack">Keras, JavaScript, Python</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="panel-skills" role="tabpanel" aria-labelledby="tab-skills" tabindex="0" hidden>
+    <div class="wrap">
+      <h2 class="title">Skills</h2>
+      <p class="lead">The tools I reach for, grouped by the kind of work.</p>
+      <dl class="skills">
+        <div><dt>Languages</dt><dd><span>Python</span><span>C</span><span>C++</span><span>Java</span><span>JavaScript</span><span>Bash</span><span>SQL</span><span>Verilog</span><span>Assembly</span><span>LaTeX</span></dd></div>
+        <div><dt>Machine learning</dt><dd><span>PyTorch</span><span>TensorFlow</span><span>LLMs</span><span>NLP</span><span>Computer vision</span><span>Data mining</span><span>NumPy</span><span>SciPy</span><span>LangChain</span><span>MCP</span></dd></div>
+        <div><dt>Web development</dt><dd><span>Django</span><span>Flask</span><span>FastAPI</span><span>Node.js</span><span>Vue.js</span><span>HTML and CSS</span><span>AJAX</span><span>jQuery</span><span>Bootstrap</span><span>PyQt5</span></dd></div>
+        <div><dt>Databases</dt><dd><span>Oracle DB</span><span>SQL</span><span>NoSQL</span><span>MongoDB</span><span>SQLAlchemy</span><span>Firebase</span></dd></div>
+        <div><dt>Servers and DevOps</dt><dd><span>Apache</span><span>Nginx</span><span>Git and GitLab</span><span>Ansible</span><span>Puppet</span><span>Travis CI</span><span>Maven</span><span>AWS</span><span>Kafka</span></dd></div>
+        <div><dt>Systems and security</dt><dd><span>CentOS 7 and 8</span><span>Ubuntu</span><span>AlmaLinux 9</span><span>Arch Linux</span><span>Kali</span><span>Kernel management</span><span>OS boot wrappers</span><span>VM configuration</span><span>Shibboleth</span><span>OAuth and OIDC</span><span>CI/CD</span><span>Load balancing</span><span>Async and parallel programming</span></dd></div>
+      </dl>
+      <p class="course"><strong>Coursework:</strong> Fundamentals of Computing, Data Structures and Algorithms, Computer Networks, System Architecture, Advanced NLP, CNNs, Neural Networks and Deep Learning, Data Mining, Mathematical Modeling, Differential Equations.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="panel-contact" role="tabpanel" aria-labelledby="tab-contact" tabindex="0" hidden>
+    <div class="wrap">
+      <h2 class="title">Contact</h2>
+      <p class="lead">Email is the fastest way to reach me.</p>
+      <div class="contact-box">
+        <a class="mail" href="mailto:ashutoshdwivedi102@gmail.com">ashutoshdwivedi102@gmail.com</a>
+        <ul>
+          <li><a href="https://github.com/ashutoshd20" target="_blank" rel="noopener">GitHub: ashutoshd20</a></li>
+          <li><a href="https://www.linkedin.com/in/ashutoshd20/" target="_blank" rel="noopener">Linkedin: ashutoshd20</a></li>
+        </ul>
+        <button class="btn copy" type="button" id="copy">Copy email address</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>&copy; 2026 Ashutosh Dwivedi</footer>
+
+<script>
+(function () {
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  var panels = Array.prototype.slice.call(document.querySelectorAll('[role="tabpanel"]'));
+  var ids = tabs.map(function (t) { return t.dataset.tab; });
+
+  function show(id, focusTab) {
+    if (ids.indexOf(id) === -1) id = 'home';
+    tabs.forEach(function (t) {
+      var on = t.dataset.tab === id;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      if (on) {
+        if (focusTab) t.focus();
+        try { t.scrollIntoView({ block: 'nearest', inline: 'center' }); } catch (e) {}
+      }
+    });
+    panels.forEach(function (p) { p.hidden = p.id !== 'panel-' + id; });
+    try { history.replaceState(null, '', '#' + id); } catch (e) {}
+    window.scrollTo(0, 0);
+  }
+
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { show(t.dataset.tab); });
+    t.addEventListener('keydown', function (e) {
+      var next = null;
+      if (e.key === 'ArrowRight') next = (i + 1) % tabs.length;
+      else if (e.key === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
+      else if (e.key === 'Home') next = 0;
+      else if (e.key === 'End') next = tabs.length - 1;
+      if (next !== null) { e.preventDefault(); show(ids[next], true); }
+    });
+  });
+
+  document.querySelectorAll('[data-goto]').forEach(function (b) {
+    b.addEventListener('click', function () { show(b.dataset.goto); });
+  });
+
+  window.addEventListener('hashchange', function () { show(location.hash.replace('#', '')); });
+  show(location.hash.replace('#', '') || 'home');
+
+  /* Project filters */
+  var chips = document.querySelectorAll('.chip');
+  var cards = document.querySelectorAll('.proj');
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () {
+      var f = c.dataset.filter;
+      chips.forEach(function (o) { o.setAttribute('aria-pressed', o === c ? 'true' : 'false'); });
+      cards.forEach(function (card) {
+        card.hidden = !(f === 'all' || card.dataset.tags.split(' ').indexOf(f) !== -1);
+      });
+    });
+  });
+
+  /* Theme */
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('theme');
+  function applyTheme(t) {
+    root.setAttribute('data-theme', t);
+    themeBtn.textContent = t === 'dark' ? 'Light mode' : 'Dark mode';
+    themeBtn.setAttribute('aria-pressed', t === 'light' ? 'true' : 'false');
+  }
+  var saved = null;
+  try { saved = localStorage.getItem('theme'); } catch (e) {}
+  applyTheme(saved === 'light' ? 'light' : 'dark');
+  themeBtn.addEventListener('click', function () {
+    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+  });
+
+  /* Copy email */
+  var copyBtn = document.getElementById('copy');
+  copyBtn.addEventListener('click', function () {
+    var email = 'ashutoshdwivedi102@gmail.com';
+    function done() {
+      copyBtn.textContent = 'Copied';
+      setTimeout(function () { copyBtn.textContent = 'Copy email address'; }, 1800);
+    }
+    try {
+      navigator.clipboard.writeText(email).then(done, function () {});
+    } catch (e) {}
+  });
+})();
+</script>
+</body>
+</html>
